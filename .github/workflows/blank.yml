@@ -29,8 +29,6 @@ jobs:
       - name: Run a one-line script
         run: | 
           google-chrome --version --headless
-          chromium --version --headless
-          firefox --vesion --headless
           g++ --version
 
       # Runs a set of commands using the runners shell
