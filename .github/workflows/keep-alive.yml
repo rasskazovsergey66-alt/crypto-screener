@@ -2,23 +2,27 @@ name: Keep repository active
 
 on:
   schedule:
-    # Запуск 1-го числа каждого месяца в 12:00 UTC
-    - cron: '0 12 1 * *'
-  workflow_dispatch:  # можно запустить и вручную
+    - cron: '0 12 1 * *'   # 1-го числа каждого месяца
+  workflow_dispatch:
 
 jobs:
   keep-alive:
     runs-on: ubuntu-22.04
+    timeout-minutes: 2      # жёсткий лимит, чтобы не висел
     permissions:
-      contents: write  # явно даём право на push
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create empty commit
+      - name: Create empty commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit --allow-empty -m "Keep-alive commit [skip ci]"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          # Явно устанавливаем URL с токеном для push
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          # Создаём пустой коммит, если нет изменений – ничего не делаем
+          git commit --allow-empty -m "Keep-alive commit [skip ci]" || echo "No new commit needed"
+          # Пытаемся запушить, игнорируем ошибки, чтобы не сломать workflow
+          git push origin || echo "Push failed, but continuing"
