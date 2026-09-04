@@ -2,8 +2,9 @@ name: Scrape Crypto Data
 
 on:
   schedule:
-    - cron: '0 10 * * *'
-  workflow_dispatch:
+    # 4:00 и 16:00 UTC = 9:00 и 21:00 по Екатеринбургу (UTC+5)
+    - cron: '0 4,16 * * *'
+  workflow_dispatch:          # Ручной запуск
 
 jobs:
   scrape:
@@ -32,6 +33,9 @@ jobs:
         run: python scraper.py
         timeout-minutes: 5
 
+      - name: Clean up old CSV files
+        run: python cleanup.py
+
       - name: Upload CSV as artifact
         uses: actions/upload-artifact@v4
         with:
@@ -45,7 +49,6 @@ jobs:
           if ls crypto_screener_*.csv 1> /dev/null 2>&1; then
             git add -f crypto_screener_*.csv
             git diff --staged --quiet || git commit -m "📊 Update crypto data [skip ci]"
-            # Используем токен для аутентификации
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           else
             echo "No CSV files to commit"
