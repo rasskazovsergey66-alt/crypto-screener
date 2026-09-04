@@ -1,0 +1,38 @@
+name: Scrape Crypto Data
+
+on:
+  schedule:
+    - cron: '0 10 * * *'   # каждый день в 10:00 UTC
+  workflow_dispatch:       # ручной запуск
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          playwright install chromium
+          playwright install-deps
+      - name: Run scraper
+        run: python scraper.py
+      - name: Upload CSV as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: crypto-data
+          path: crypto_screener_*.csv
+      - name: Commit and push data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add crypto_screener_*.csv
+          git diff --staged --quiet || git commit -m "📊 Update crypto data [skip ci]"
+          git push
