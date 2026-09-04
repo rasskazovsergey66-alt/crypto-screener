@@ -2,54 +2,52 @@ name: Scrape Crypto Data
 
 on:
   schedule:
-    # Ежедневно в 10:00 UTC (13:00 МСК)
-    - cron: '0 10 * * *'
-  # Ручной запуск (через интерфейс GitHub Actions)
-  workflow_dispatch:
+    - cron: '0 10 * * *'      # Ежедневно в 10:00 UTC
+  workflow_dispatch:          # Ручной запуск
 
 jobs:
   scrape:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04     # Стабильная LTS
 
     steps:
-      # 1. Клонируем репозиторий
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Устанавливаем Python 3.11
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
 
-      # 3. Устанавливаем зависимости Python
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 4. Устанавливаем браузер Playwright (Chromium) с системными зависимостями
       - name: Install Playwright browsers
         run: |
           playwright install --with-deps chromium
 
-      # 5. Запускаем скрипт парсинга
       - name: Run scraper
         run: python scraper.py
+        timeout-minutes: 5     # Защита от зависания
 
-      # 6. Загружаем CSV-файлы как артефакт (для скачивания)
       - name: Upload CSV as artifact
         uses: actions/upload-artifact@v4
         with:
           name: crypto-data
           path: crypto_screener_*.csv
 
-      # 7. Коммитим и пушим новые CSV-файлы в репозиторий
       - name: Commit and push data
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add crypto_screener_*.csv
-          git diff --staged --quiet || git commit -m "📊 Update crypto data [skip ci]"
-          git push
+          # Проверяем, есть ли CSV-файлы
+          if ls crypto_screener_*.csv 1> /dev/null 2>&1; then
+            # Принудительно добавляем даже игнорируемые файлы
+            git add -f crypto_screener_*.csv
+            git diff --staged --quiet || git commit -m "📊 Update crypto data [skip ci]"
+            git push
+          else
+            echo "No CSV files to commit"
+          fi
