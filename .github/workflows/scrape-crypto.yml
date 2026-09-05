@@ -2,7 +2,7 @@ name: Scrape Crypto Data
 
 on:
   schedule:
-    - cron: '0 4,16 * * *'
+    - cron: '0 4,16 * * *'          # 4:00 и 16:00 UTC = 9:00 и 21:00 Екатеринбург
   workflow_dispatch:
 
 jobs:
@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Python
-        uses: actions/setup-python@v6           # <-- Обновлено с v5 на v6
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -32,11 +32,29 @@ jobs:
       - name: Run scraper
         run: python scraper.py
 
-      - name: Clean up old CSV files
-        run: python cleanup.py
+      - name: Remove old CSV files (local and from Git)
+        run: |
+          TODAY=$(date +%Y%m%d)
+          echo "Сегодня: $TODAY"
+
+          # Удаляем локальные файлы (кроме сегодняшнего)
+          for f in crypto_screener_*.csv; do
+            if [[ -f "$f" && "$f" != *"$TODAY"* ]]; then
+              echo "Удаляем локально: $f"
+              rm -f "$f"
+            fi
+          done
+
+          # Удаляем из Git все CSV-файлы, кроме сегодняшнего
+          for f in $(git ls-files -- 'crypto_screener_*.csv'); do
+            if [[ "$f" != *"$TODAY"* ]]; then
+              echo "Удаляем из Git: $f"
+              git rm -f "$f" || true
+            fi
+          done
 
       - name: Upload CSV as artifact
-        uses: actions/upload-artifact@v6        # <-- Обновлено с v4 на v6
+        uses: actions/upload-artifact@v6
         with:
           name: crypto-data
           path: crypto_screener_*.csv
