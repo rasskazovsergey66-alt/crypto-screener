@@ -1,6 +1,6 @@
 ### 🚀 Запуск парсера вручную
 
-В[![Запустить вручную](https://img.shields.io/badge/🚀-Запустить_вручную-2ea44f?style=for-the-badge&logo=github)](https://github.com/rasskazovsergey66-alt/crypto-screener/actions/workflows/scrape-crypto.yml)
+[![Запустить вручную](https://img.shields.io/badge/Запустить_вручную-2ea44f?style=for-the-badge)](https://github.com/rasskazovsergey66-alt/crypto-screener/actions/workflows/scrape-crypto.yml)
 
 **Пошаговая инструкция:**
 
