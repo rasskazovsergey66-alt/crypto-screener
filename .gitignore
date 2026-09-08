@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Playwright
+*.png
+error_screenshot.png
+debug_no_rows.png
+debug_*.png
+
+# Data files
+crypto_screener_*.csv
+latest_data.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
