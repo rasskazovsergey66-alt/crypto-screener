@@ -30,28 +30,7 @@ jobs:
           playwright install --with-deps chromium
 
       - name: Run scraper
-        run: python scraper.py
-
-      - name: Remove old CSV files (local and from Git)
-        run: |
-          TODAY=$(date +%Y%m%d)
-          echo "Сегодня: $TODAY"
-
-          # Удаляем локальные файлы (кроме сегодняшнего)
-          for f in crypto_screener_*.csv; do
-            if [[ -f "$f" && "$f" != *"$TODAY"* ]]; then
-              echo "Удаляем локально: $f"
-              rm -f "$f"
-            fi
-          done
-
-          # Удаляем из Git все CSV-файлы, кроме сегодняшнего
-          for f in $(git ls-files -- 'crypto_screener_*.csv'); do
-            if [[ "$f" != *"$TODAY"* ]]; then
-              echo "Удаляем из Git: $f"
-              git rm -f "$f" || true
-            fi
-          done
+        run: python src/main.py
 
       - name: Upload CSV as artifact
         uses: actions/upload-artifact@v6
@@ -63,10 +42,15 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          if ls crypto_screener_*.csv 1> /dev/null 2>&1; then
-            git add -f crypto_screener_*.csv
-            git diff --staged --quiet || git commit -m "📊 Update crypto data [skip ci]"
-            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+          # Свежий CSV + README + архив history/
+          git add -f crypto_screener_*.csv
+          git add -f history/ || true
+          git add -f README.md || true
+
+          if git diff --staged --quiet; then
+            echo "Нет изменений для коммита"
           else
-            echo "No CSV files to commit"
+            git commit -m "🪙 Update crypto data [skip ci]"
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           fi

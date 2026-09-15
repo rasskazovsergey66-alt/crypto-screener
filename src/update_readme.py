@@ -104,7 +104,7 @@ def build_latest_block(rows: list[dict], csv_path: Path | None) -> str:
 
     return (
         "## 📊 Актуальные данные\n\n"
-        "| 📅 Последнее обновление | 🪙 Монет в файле | 💾 Размер | 🕓 История |\n"
+        "| 📅 Последнее обновление | 💰 Монет в файле | 💾 Размер | 🕓 История |\n"
         "|---|---|---|---|\n"
         f"| **{mtime}** | **{count}** | **{size}** | **{history_count}** снапшотов |\n\n"
         f"**⭐ Свежий срез:** [`{csv_path.name}`](./{csv_path.name})  \n"
@@ -211,7 +211,7 @@ def build_fields_block() -> str:
         "## 📋 Поля CSV\n\n"
         "| Поле | Описание |\n"
         "|---|---|\n"
-        "| 🪙 `Инструмент` | Тикер монеты (BTC, ETH, …) |\n"
+        "| 🔨 `Инструмент` | Тикер монеты (BTC, ETH, …) |\n"
         "| 🏆 `Рейтинг` | Позиция в рейтинге |\n"
         "| 💰 `Цена` | Текущая цена |\n"
         "| 📈 `Изм. %24ч` | Изменение за 24 часа |\n"
@@ -229,7 +229,7 @@ def build_fields_block() -> str:
 def build_footer() -> str:
     return (
         "<div align=\"center\">\n\n"
-        "**🪙 Crypto Screener Parser**\n\n"
+        "**Crypto Screener Parser**\n\n"
         "Данные получены с [TradingView](https://ru.tradingview.com/crypto-coins-screener/) "
         "в ознакомительных целях.\n\n"
         "⭐ Поставьте звезду, если проект оказался полезен!\n\n"
