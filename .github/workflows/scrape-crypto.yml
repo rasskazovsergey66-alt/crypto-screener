@@ -43,14 +43,12 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          # Свежий CSV + README + архив history/
-          git add -f crypto_screener_*.csv
-          git add -f history/ || true
-          git add -f README.md || true
+          # -A стейджит и добавления, и удаления (после organizer.py)
+          git add -A
 
           if git diff --staged --quiet; then
             echo "Нет изменений для коммита"
           else
-            git commit -m "🪙 Update crypto data [skip ci]"
+            git commit -m "💰 Update crypto data [skip ci]"
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           fi

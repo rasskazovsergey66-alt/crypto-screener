@@ -78,7 +78,7 @@ def count_history() -> int:
 # -----------------------------------------------------------------
 def build_header() -> str:
     return (
-        "# 🪙 Crypto Screener Parser\n\n"
+        "# Crypto Screener Parser\n\n"
         "[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)\n"
         "[![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev/)\n"
         "[![TradingView](https://img.shields.io/badge/Source-TradingView-1E88E5?style=for-the-badge&logo=tradingview&logoColor=white)](https://ru.tradingview.com/crypto-coins-screener/)\n"
