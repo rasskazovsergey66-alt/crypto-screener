@@ -1,4 +1,4 @@
-# 🪙 Crypto Screener Parser
+# Crypto Screener Parser
 
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev/)
@@ -14,9 +14,9 @@
 
 | 📅 Последнее обновление | 💰 Монет в файле | 💾 Размер | 🕓 История |
 |---|---|---|---|
-| **16.09.2026 09:24 UTC** | **135** | **26.2 КБ** | **3** снапшотов |
+| **16.09.2026 09:30 UTC** | **135** | **26.2 КБ** | **6** снапшотов |
 
-**⭐ Свежий срез:** [`crypto_screener_20260916_092405.csv`](./crypto_screener_20260916_092405.csv)  
+**⭐ Свежий срез:** [`crypto_screener_20260916_093054.csv`](./crypto_screener_20260916_093054.csv)  
 **🕓 Архив:** [`history/`](./history/) — все предыдущие генерации
 
 ---
@@ -25,16 +25,16 @@
 
 | # | 🪙 Монета | 💰 Цена | 📈 Изм. 24ч | 🏦 Рын. кап. | 📊 Объём 24ч |
 |:---:|:---|:---:|:---:|:---:|:---:|
-| **1** | **BTC** | `75 787,57 USD` | −1,44% | 1,52 T USD | 38,93 B USD |
-| **2** | **ETH** | `2 402,40 USD` | −2,91% | 293,22 B USD | 19,33 B USD |
-| **3** | **USDT** | `0,99912 USD` | −0,05% | 183,28 B USD | 80,69 B USD |
-| **4** | **BNB** | `709,20 USD` | −1,08% | 94,44 B USD | 1,53 B USD |
-| **5** | **XRP** | `1,2868 USD` | −7,88% | 80,91 B USD | 6,68 B USD |
+| **1** | **BTC** | `75 777,44 USD` | −1,54% | 1,52 T USD | 38,93 B USD |
+| **2** | **ETH** | `2 400,70 USD` | −3,07% | 293,01 B USD | 19,33 B USD |
+| **3** | **USDT** | `0,99912 USD` | −0,06% | 183,28 B USD | 80,69 B USD |
+| **4** | **BNB** | `709,72 USD` | −1,01% | 94,51 B USD | 1,53 B USD |
+| **5** | **XRP** | `1,2858 USD` | −8,30% | 80,85 B USD | 6,68 B USD |
 | **6** | **USDC** | `1,0000 USD` | −0,01% | 73,73 B USD | 19,52 B USD |
-| **7** | **SOL** | `97,189 USD` | −3,37% | 57,06 B USD | 3,77 B USD |
-| **8** | **TRX** | `0,33475 USD` | −0,95% | 31,79 B USD | 521,84 M USD |
-| **9** | **ZEC** | `1 192,23 USD` | 🟢 +4,17% | 20,11 B USD | 1,17 B USD |
-| **10** | **HYPE** | `77,690 USD` | −1,55% | 19,55 B USD | 858,65 M USD |
+| **7** | **SOL** | `97,100 USD` | −3,60% | 57 B USD | 3,77 B USD |
+| **8** | **TRX** | `0,33472 USD` | −0,95% | 31,78 B USD | 521,84 M USD |
+| **9** | **ZEC** | `1 190,62 USD` | 🟢 +4,38% | 20,09 B USD | 1,17 B USD |
+| **10** | **HYPE** | `77,670 USD` | −1,84% | 19,54 B USD | 858,65 M USD |
 
 ---
 
